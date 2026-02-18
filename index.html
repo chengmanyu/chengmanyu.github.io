@@ -1,44 +1,49 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cheng Man Yu (Jeff) – AI & Software Enthusiast</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- 粒子特效库 -->
+    <!-- 添加 Font Awesome 圖標庫 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 添加 Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
     <!-- 粒子背景 -->
     <div id="particles-js"></div>
 
-    <!-- 导航栏 -->
+    <!-- 導航欄 -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">Jeff Cheng</div>
+            <div class="nav-brand">Cheng Man Yu (Jeff)</div>
             <div class="nav-links">
-                <a href="#home">首页</a>
-                <a href="#about">关于我</a>
-                <a href="#projects">项目</a>
-                <a href="cv.html">简历</a>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="cv.html">CV</a>
             </div>
         </div>
     </nav>
 
-    <!-- 主页部分 -->
+    <!-- Hero 區域 -->
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content fade-in">
-                <h1 class="glitch" data-text="Hi, I'm Jeff Cheng">Hi, I'm Jeff Cheng</h1>
+                <h1 class="glitch">Hi, I'm Jeff Cheng</h1>
                 <p class="subtitle">Aspiring AI Engineer & Software Developer</p>
-                <p class="description">正在香港浸会大学攻读人工智能方向的计算机科学学士学位</p>
+                <p class="description">Currently pursuing BSc in Computer Science - AI Concentration at Hong Kong Baptist University</p>
                 
-                <!-- 社交图标 -->
+                <!-- 社交圖標 -->
                 <div class="social-icons">
-                    <a href="mailto:wenyu55475715@gmail.com" class="social-icon" title="Email">
+                    <a href="tel:+85255475715" class="social-icon" title="Phone">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                    <a href="mailto:wenyu55475715@gmail.com" class="social-icon" title="Gmail">
                         <i class="fas fa-envelope"></i>
                     </a>
-                    <a href="mailto:25206591@life.hkbu.edu.hk" class="social-icon" title="University Email">
+                    <a href="mailto:25206591@life.hkbu.edu.hk" class="social-icon" title="HKBU Email">
                         <i class="fas fa-graduation-cap"></i>
                     </a>
                     <a href="https://linkedin.com/in/man-yu-cheng-780632279" target="_blank" class="social-icon" title="LinkedIn">
@@ -47,114 +52,125 @@
                     <a href="https://github.com/chengmanyu" target="_blank" class="social-icon" title="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="tel:+85255475715" class="social-icon" title="Phone">
-                        <i class="fas fa-phone"></i>
-                    </a>
-                    <a href="assets/ChengManYu_CV.pdf" download class="social-icon" title="Download CV">
-                        <i class="fas fa-file-download"></i>
-                    </a>
                 </div>
 
                 <div class="cta-buttons">
                     <a href="#projects" class="btn btn-primary">
-                        <i class="fas fa-project-diagram"></i> View Projects
+                        <i class="fas fa-rocket"></i> View Projects
                     </a>
                     <a href="https://chengmanyu-ppt-ai-outline.hf.space/" target="_blank" class="btn btn-secondary">
-                        <i class="fas fa-robot"></i> Try AI Demo
+                        <i class="fas fa-magic"></i> Try AI Demo
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 关于我部分 -->
+    <!-- 關於我 -->
     <section id="about" class="about">
         <div class="container">
             <h2 class="section-title fade-in-up">About Me</h2>
-            <p class="section-subtitle fade-in-up">热衷于使用大型语言模型和现代Web技术构建智能应用</p>
+            <p class="section-subtitle fade-in-up">Passionate about building intelligent applications using LLMs and modern web technologies</p>
             
             <div class="about-grid">
+                <!-- 教育背景 -->
                 <div class="about-card fade-in-up">
                     <div class="card-icon">🎓</div>
-                    <h3>教育背景</h3>
+                    <h3>Education</h3>
                     <ul>
-                        <li><strong>香港浸会大学</strong> (2025-2027)<br>计算机科学理学士 - 人工智能方向</li>
-                        <li><strong>香港专业教育学院（屯门）</strong> (2023-2025)<br>AI与移动应用开发高级文凭<br><span class="highlight">获得5项奖学金</span></li>
+                        <li><strong>Hong Kong Baptist University</strong> (2025-2027)<br>
+                            BSc in Computer Science - <span class="highlight">AI Concentration</span></li>
+                        <li><strong>Hong Kong Institute of Vocational Education (Tuen Mun)</strong> (2023-2025)<br>
+                            Higher Diploma in AI & Mobile Applications Development<br>
+                            <span class="badge">5 Scholarships</span></li>
                     </ul>
                 </div>
 
-                <div class="about-card fade-in-up" style="animation-delay: 0.2s">
+                <!-- 工作經驗 -->
+                <div class="about-card fade-in-up">
                     <div class="card-icon">💼</div>
-                    <h3>工作经验</h3>
-                    <p><strong>iN and iN Management Limited</strong><br>助理AI培训专家 (2024年7-8月)</p>
+                    <h3>Work Experience</h3>
+                    <p><strong>iN and iN Management Limited</strong><br>
+                    <em>Assistant AI Training Specialist (Jul-Aug 2024)</em></p>
                     <ul>
-                        <li>开发AI客户服务聊天机器人（Python）</li>
-                        <li>为60+款AI移动益智游戏设计UI（Unity）</li>
-                        <li>文件系统服务器：硬件设置和功能开发</li>
-                        <li>协助AI数据集收集</li>
+                        <li>Developed AI Customer Service Chatbot (Python)</li>
+                        <li>Designed UI for 60+ AI Mobile Puzzle Games (Unity)</li>
+                        <li>Built File System Server: Hardware & Functions</li>
+                        <li>Assisted with AI dataset collection</li>
                     </ul>
                 </div>
 
-                <div class="about-card fade-in-up" style="animation-delay: 0.4s">
+                <!-- 語言能力 -->
+                <div class="about-card fade-in-up">
                     <div class="card-icon">🌐</div>
-                    <h3>语言能力</h3>
+                    <h3>Languages</h3>
                     <ul>
-                        <li><span class="badge">粤语</span> 母语</li>
-                        <li><span class="badge">普通话</span> 流利</li>
-                        <li><span class="badge">英语</span> 工作语言</li>
+                        <li><strong>Cantonese</strong> - Native Speaker</li>
+                        <li><strong>Mandarin</strong> - Fluent</li>
+                        <li><strong>English</strong> - Working Language</li>
                     </ul>
-                    
-                    <h3 style="margin-top: 20px;">技术技能</h3>
-                    <div class="skills-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">HTML/CSS/JS</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Android Studio</span>
-                        <span class="skill-tag">AI Frameworks</span>
-                    </div>
+                    <h3 style="margin-top: 1.5rem;">Certifications</h3>
+                    <ul>
+                        <li>Standard First Aid Certificate</li>
+                        <li>NVIDIA AI for Science Bootcamp (2023)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 技能標籤 -->
+            <div class="skills-section fade-in-up" style="margin-top: 3rem;">
+                <h3 class="section-title" style="font-size: 2rem;">Technical Skills</h3>
+                <div class="skills-tags">
+                    <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+                    <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+                    <span class="skill-tag"><i class="fab fa-html5"></i> HTML/CSS/JS</span>
+                    <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+                    <span class="skill-tag"><i class="fab fa-android"></i> Android Studio</span>
+                    <span class="skill-tag"><i class="fas fa-brain"></i> AI Frameworks</span>
+                    <span class="skill-tag"><i class="fab fa-unity"></i> Unity</span>
+                    <span class="skill-tag"><i class="fas fa-robot"></i> LLMs</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 项目部分 -->
+    <!-- 項目展示 -->
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title fade-in-up">Featured Projects</h2>
-            <p class="section-subtitle fade-in-up">精选项目展示</p>
-            
+            <p class="section-subtitle fade-in-up">Selected project showcases</p>
+
             <div class="project-card fade-in-up">
                 <div class="project-icon">📊✨</div>
                 <div class="project-content">
                     <h3>PPT Outline AI Generator</h3>
-                    <p>AI工具，可从任何主题即时生成专业的5页幻灯片大纲</p>
+                    <p>AI tool that instantly generates professional 5-slide PowerPoint outlines from any topic</p>
                     
                     <div class="project-highlights">
                         <div class="highlight-item">
                             <i class="fas fa-check-circle"></i>
-                            使用LoRA微调Qwen2-1.5B-Instruct模型（500个高质量样本）
+                            <span>Fine-tuned <strong>Qwen2-1.5B-Instruct</strong> using LoRA on 500 high-quality examples</span>
                         </div>
                         <div class="highlight-item">
                             <i class="fas fa-check-circle"></i>
-                            稳定训练（3个epoch），验证损失递减
+                            <span>Stable training (3 epochs) with decreasing validation loss</span>
                         </div>
                         <div class="highlight-item">
                             <i class="fas fa-check-circle"></i>
-                            永久部署在Hugging Face Spaces
+                            <span>Deployed permanently on <strong>Hugging Face Spaces</strong></span>
                         </div>
                         <div class="highlight-item">
                             <i class="fas fa-check-circle"></i>
-                            支持中英文提示
+                            <span>Supports English and Chinese prompts</span>
                         </div>
                     </div>
-                    
+
                     <div class="project-buttons">
                         <a href="projects/ppt-outline.html" class="btn btn-primary">
-                            <i class="fas fa-info-circle"></i> View Project
+                            <i class="fas fa-info-circle"></i> View Details
                         </a>
                         <a href="https://chengmanyu-ppt-ai-outline.hf.space/" target="_blank" class="btn btn-secondary">
-                            <i class="fas fa-external-link-alt"></i> Try Live Demo
+                            <i class="fas fa-play"></i> Try Live Demo
                         </a>
                     </div>
                 </div>
@@ -162,36 +178,34 @@
         </div>
     </section>
 
-    <!-- 页脚 -->
+    <!-- 頁腳 -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>联系方式</h4>
+                    <h4>Contact Information</h4>
                     <p><i class="fas fa-phone"></i> +852 55475715</p>
                     <p><i class="fas fa-envelope"></i> <strong>wenyu55475715@gmail.com</strong></p>
                     <p><i class="fas fa-envelope"></i> <strong>25206591@life.hkbu.edu.hk</strong></p>
                 </div>
                 <div class="footer-section">
-                    <h4>快速链接</h4>
-                    <a href="#home">首页</a>
-                    <a href="#about">关于我</a>
-                    <a href="#projects">项目</a>
-                    <a href="cv.html">简历</a>
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="cv.html">CV</a>
                 </div>
                 <div class="footer-section">
-                    <h4>关注我</h4>
-                    <div class="social-icons">
-                        <a href="https://linkedin.com/in/man-yu-cheng-780632279" target="_blank" class="social-icon">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/chengmanyu" target="_blank" class="social-icon">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="mailto:wenyu55475715@gmail.com" class="social-icon">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
+                    <h4>Connect With Me</h4>
+                    <a href="https://linkedin.com/in/man-yu-cheng-780632279" target="_blank">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://github.com/chengmanyu" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://chengmanyu-ppt-ai-outline.hf.space/" target="_blank">
+                        <i class="fas fa-rocket"></i> AI Demo
+                    </a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -200,8 +214,6 @@
         </div>
     </footer>
 
-    <!-- 粒子特效JS库 -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
