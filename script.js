@@ -75,7 +75,7 @@ particlesJS('particles-js', {
     retina_detect: true
 });
 
-// 平滑滚动
+// 平滑滾動
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -89,7 +89,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// 滚动动画观察器
+// 滾動動畫觀察器
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
@@ -104,7 +104,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// 观察所有需要动画的元素
+// 觀察所有需要動畫的元素
 document.addEventListener('DOMContentLoaded', () => {
     const fadeElements = document.querySelectorAll('.fade-in-up');
     fadeElements.forEach(el => {
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 导航栏滚动效果
+// 導航欄滾動效果
 let lastScroll = 0;
 const navbar = document.querySelector('.navbar');
 
@@ -129,7 +129,7 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// 技能标签动画
+// 技能標籤動畫
 const skillTags = document.querySelectorAll('.skill-tag');
 skillTags.forEach((tag, index) => {
     tag.style.animationDelay = `${index * 0.1}s`;
