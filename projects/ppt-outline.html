@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPT Outline AI Generator | Cheng Man Yu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .demo-frame {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-5xl mx-auto px-6 py-12">
+        <a href="../index.html" class="text-indigo-600 hover:underline mb-8 inline-block">← Back to Home</a>
+        
+        <h1 class="text-5xl font-bold mb-4">PPT Outline AI Generator</h1>
+        <p class="text-xl text-gray-600 mb-10">Instantly generate professional 5-slide PowerPoint outlines using fine-tuned Qwen2-1.5B</p>
 
+        <!-- Live Demo -->
+        <div class="mb-16">
+            <h2 class="text-2xl font-semibold mb-6">Live Demo</h2>
+            <iframe src="https://chengmanyu-ppt-ai-outline.hf.space/" 
+                    class="demo-frame w-full" 
+                    height="650" 
+                    frameborder="0"
+                    allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Project Details -->
+        <div class="grid md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-2xl font-semibold mb-6">Project Overview</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    This is my first major AI project. I fine-tuned Qwen2-1.5B-Instruct using LoRA on 500 high-quality examples 
+                    to create a practical tool that helps students and professionals quickly structure their presentations.
+                </p>
+            </div>
+            <div>
+                <h2 class="text-2xl font-semibold mb-6">Technical Highlights</h2>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start"><span class="text-green-500 mr-3">✔</span> LoRA + 4-bit Quantization</li>
+                    <li class="flex items-start"><span class="text-green-500 mr-3">✔</span> Stable training (3 epochs)</li>
+                    <li class="flex items-start"><span class="text-green-500 mr-3">✔</span> Deployed on Hugging Face Spaces</li>
+                    <li class="flex items-start"><span class="text-green-500 mr-3">✔</span> Interactive Gradio interface</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
