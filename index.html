@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cheng Man Yu (Jeff) - AI & Software Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.5.0/tsparticles.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-preset-stars@3.5.0/tsparticles.preset.stars.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -35,8 +37,46 @@
             transform: translateY(0);
         }
     </style>
+
+    <script>
+    tsParticles.load("tsparticles", {
+        preset: "stars",
+        background: {
+    color: {
+        value: document.documentElement.classList.contains('dark') ? "#0f172a" : "#f8fafc"
+    }
+},
+        particles: {
+            number: { value: 80 },
+            color: { value: "#ffffff" },
+            shape: { type: "circle" },
+            opacity: { value: 0.5 },
+            size: { value: { min: 1, max: 3 } },
+            move: {
+                enable: true,
+                speed: 0.5,
+                direction: "none",
+                random: true,
+                straight: false,
+                outModes: "out"
+            }
+        },
+        interactivity: {
+            events: {
+                onHover: { enable: true, mode: "grab" },
+                resize: true
+            },
+            modes: {
+                grab: { distance: 200, links: { opacity: 0.5 } }
+            }
+        },
+        detectRetina: true
+    });
+</script>
+    
 </head>
 <body class="bg-gray-50 text-gray-900">
+    <div id="tsparticles" class="fixed inset-0 z-[-1]"></div>
     <!-- Navigation -->
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -70,6 +110,59 @@
             </div>
         </div>
     </section>
+
+    <!-- About Section -->
+<section id="about" class="max-w-5xl mx-auto px-6 py-20 text-center md:text-left">
+    <h2 class="text-4xl font-bold mb-10">About Me</h2>
+    
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+        <!-- 左邊文字 -->
+        <div class="fade-in">
+            <p class="text-lg leading-relaxed mb-6">
+                I am an aspiring AI Engineer passionate about building intelligent applications using large language models and modern web technologies. 
+                Currently pursuing a BSc in Computer Science with AI Concentration at Hong Kong Baptist University.
+            </p>
+            
+            <div class="space-y-4 text-gray-700 dark:text-gray-300">
+                <div>
+                    <strong>Education:</strong><br>
+                    • BSc (Hons) Computer Science – AI Concentration, HKBU (2025–2027)<br>
+                    • Higher Diploma in AI and Mobile Applications Development, IVE (2023–2025)
+                </div>
+                
+                <div>
+                    <strong>Experience:</strong><br>
+                    • Assistant AI Training Specialist at iN and iN Management Limited (2024)
+                </div>
+                
+                <div>
+                    <strong>Languages:</strong><br>
+                    • Native: Cantonese<br>
+                    • Fluent: Mandarin<br>
+                    • Professional: English
+                </div>
+                
+                <div>
+                    <strong>Key Skills:</strong><br>
+                    Python, Transformers, LoRA, Gradio, Hugging Face, Java, SQL, Unity
+                </div>
+            </div>
+            
+            <a href="#" class="mt-8 inline-block bg-indigo-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-indigo-700 transition">
+                Download Full CV (Coming Soon)
+            </a>
+        </div>
+        
+        <!-- 右邊可以放頭像或簡單圖示（之後再加） -->
+        <div class="fade-in text-center">
+            <div class="w-64 h-64 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-8xl shadow-2xl">
+                JC
+            </div>
+            <p class="mt-6 text-gray-500 dark:text-gray-400">Cheng Man Yu (Jeff)</p>
+        </div>
+    </div>
+</section>
+    
 
     <!-- Projects Section -->
     <section id="projects" class="max-w-6xl mx-auto px-6 py-20">
