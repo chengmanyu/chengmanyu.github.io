@@ -6,71 +6,43 @@
     <title>PPT Outline AI Generator | Jeff Cheng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .iframe-container {
-            position: relative;
+        .demo-container {
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 30px 60px -15px rgba(0,0,0,0.3);
-            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
         }
-        .dark .iframe-container { background: linear-gradient(135deg, #1f2937, #111827); }
-        .loading-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(255,255,255,0.95);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            transition: opacity 0.6s ease;
-        }
-        .dark .loading-overlay { background: rgba(17,24,39,0.95); }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen">
     <div class="max-w-7xl mx-auto px-6 py-16">
-        <a href="../index.html" class="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:underline mb-12 text-lg">
-            ← Back to Home
-        </a>
+        <a href="../index.html" class="text-indigo-600 dark:text-indigo-400 hover:underline mb-12 inline-block text-lg">← Back to Home</a>
 
-        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 text-center">PPT Outline AI Generator</h1>
+        <h1 class="text-5xl font-bold text-center mb-6">PPT Outline AI Generator</h1>
         <p class="text-2xl text-gray-600 dark:text-gray-400 text-center mb-16 max-w-3xl mx-auto">
-            Instantly generate professional 5-slide PowerPoint outlines from any topic — powered by fine-tuned Qwen2-1.5B
+            Instantly generate professional 5-slide PowerPoint outlines from any topic
         </p>
 
-        <!-- Live Demo -->
-        <div class="iframe-container mb-20">
-            <div class="loading-overlay" id="loading">
-                <div class="text-center">
-                    <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-indigo-600 mx-auto mb-6"></div>
-                    <p class="text-xl font-medium">Loading AI Demo... (First load may take 30–90 seconds)</p>
-                </div>
-            </div>
-            <iframe 
-                src="https://chengmanyu-ppt-ai-outline.hf.space/" 
-                class="w-full h-[800px] md:h-[900px]" 
-                frameborder="0" 
-                allowfullscreen
-                onload="document.getElementById('loading').style.opacity='0'; setTimeout(() => document.getElementById('loading').style.display='none', 600);">
+        <div class="demo-container bg-white dark:bg-gray-800 p-4">
+            <iframe src="https://chengmanyu-ppt-ai-outline.hf.space/" 
+                    class="w-full h-[850px] rounded-2xl" 
+                    frameborder="0" allowfullscreen>
             </iframe>
         </div>
 
-        <!-- 專案資訊 -->
-        <div class="grid md:grid-cols-2 gap-12">
+        <div class="mt-16 grid md:grid-cols-2 gap-12 text-lg">
             <div>
                 <h2 class="text-3xl font-bold mb-6">Project Overview</h2>
-                <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                    My first major AI project. Fine-tuned Qwen2-1.5B-Instruct using LoRA on 500 high-quality topic-to-outline pairs. 
-                    Helps students and professionals quickly create structured presentation outlines in seconds.
+                <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    My first major AI project. Fine-tuned Qwen2-1.5B-Instruct using LoRA on 500 high-quality topic-to-outline pairs.
                 </p>
             </div>
             <div>
                 <h2 class="text-3xl font-bold mb-6">Technical Highlights</h2>
-                <ul class="space-y-4 text-lg text-gray-700 dark:text-gray-300">
-                    <li class="flex items-start"><span class="text-green-500 mr-3 text-2xl">✔</span> LoRA + 4-bit Quantization for efficient training</li>
-                    <li class="flex items-start"><span class="text-green-500 mr-3 text-2xl">✔</span> Stable convergence (validation loss ↓ across 3 epochs)</li>
-                    <li class="flex items-start"><span class="text-green-500 mr-3 text-2xl">✔</span> Permanent Gradio deployment on Hugging Face Spaces</li>
-                    <li class="flex items-start"><span class="text-green-500 mr-3 text-2xl">✔</span> Supports English & Chinese prompts</li>
+                <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                    <li>• LoRA + 4-bit Quantization</li>
+                    <li>• Stable training with decreasing validation loss</li>
+                    <li>• Deployed permanently on Hugging Face Spaces</li>
+                    <li>• Supports English and Chinese prompts</li>
                 </ul>
             </div>
         </div>
