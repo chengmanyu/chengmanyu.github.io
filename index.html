@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cheng Man Yu (Jeff) – AI & Software Enthusiast</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- 添加 Font Awesome 圖標庫 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 添加 Particles.js -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
@@ -213,38 +215,5 @@
     </footer>
 
     <script src="script.js"></script>
-
-    <!-- ✅ 粒子效果：滑鼠推開 + 點擊增加粒子 -->
-    <script>
-      particlesJS("particles-js", {
-        particles: {
-          number: { value: 80 },
-          size: { value: 3 },
-          opacity: { value: 0.5 },
-          move: {
-            speed: 1,
-            bounce: false
-          },
-          line_linked: {
-            enable: true,
-            distance: 150,
-            opacity: 0.2
-          }
-        },
-        interactivity: {
-          detect_on: "canvas",
-          events: {
-            onhover: { enable: true, mode: "repulse" },
-            onclick: { enable: true, mode: "push" },
-            resize: true
-          },
-          modes: {
-            repulse: { distance: 100, duration: 0.4 },
-            push: { particles_nb: 4 }
-          }
-        },
-        retina_detect: true
-      });
-    </script>
 </body>
 </html>
