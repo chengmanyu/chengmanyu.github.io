@@ -1,5 +1,5 @@
 // 粒子特效配置
-particlesJS('particles-js', {
+/*particlesJS('particles-js', {
     particles: {
         number: {
             value: 80,
@@ -72,8 +72,8 @@ particlesJS('particles-js', {
             }
         }
     },
-    retina_detect: true
-});
+    retina_detect: true 
+});*/
 
 // 平滑滾動
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
