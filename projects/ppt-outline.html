@@ -4,41 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PPT Outline AI Generator | Jeff Cheng</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen">
-    <div class="max-w-6xl mx-auto px-6 py-16">
-        <a href="../index.html" class="text-indigo-600 hover:underline mb-12 inline-block text-lg">← Back to Home</a>
+<body>
+    <!-- 粒子背景 -->
+    <div id="particles-js"></div>
 
-        <h1 class="text-4xl font-bold text-center mb-8">PPT Outline AI Generator</h1>
-        <p class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
-            AI tool that instantly generates professional 5-slide PowerPoint outlines from any topic.
-        </p>
-
-        <!-- Demo iframe -->
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
-            <iframe src="https://chengmanyu-ppt-ai-outline.hf.space/" 
-                    class="w-full h-[800px]" frameborder="0" allowfullscreen></iframe>
+    <!-- 導航欄 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">Cheng Man Yu (Jeff)</div>
+            <div class="nav-links">
+                <a href="../index.html">← Back to Home</a>
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#projects">Projects</a>
+                <a href="../cv.html">CV</a>
+            </div>
         </div>
+    </nav>
 
-        <!-- Loss Curve -->
-        <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-center">Training Loss Curve</h2>
-            <img src="../assets/images/loss_curve_picture.png" 
-                 alt="Training Loss Curve" 
-                 class="max-w-full mx-auto rounded-lg">
-        </div>
+    <!-- 項目詳情 -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-header fade-in-up">
+                <h1>📊✨ PPT Outline AI Generator</h1>
+                <p class="project-tagline">AI tool that instantly generates professional 5-slide PowerPoint outlines from any topic.</p>
+                <a href="https://chengmanyu-ppt-ai-outline.hf.space/" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-play"></i> Try Live Demo
+                </a>
+            </div>
 
-        <!-- 技術亮點 -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-            <h2 class="text-2xl font-bold mb-6">Technical Highlights</h2>
-            <ul class="space-y-3 text-lg">
-                <li>• Fine-tuned Qwen2-1.5B-Instruct using LoRA on 500 high-quality examples</li>
-                <li>• Stable training (3 epochs) with decreasing validation loss</li>
-                <li>• Deployed permanently on Hugging Face Spaces</li>
-                <li>• Supports English and Chinese prompts</li>
-            </ul>
+            <!-- 訓練損失曲線 -->
+            <div class="project-section fade-in-up">
+                <h2>Training Loss Curve</h2>
+                <div class="image-container">
+                    <img src="../assets/images/loss_curve_picture.png" alt="Training Loss Curve" class="project-image">
+                </div>
+            </div>
+
+            <!-- 技術亮點 -->
+            <div class="project-section fade-in-up">
+                <h2>Technical Highlights</h2>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>Fine-tuned Model</h3>
+                        <p>Fine-tuned <strong>Qwen2-1.5B-Instruct</strong> using LoRA on 500 high-quality examples</p>
+                    </div>
+                    <div class="highlight-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Stable Training</h3>
+                        <p>3 epochs with decreasing validation loss, ensuring model reliability</p>
+                    </div>
+                    <div class="highlight-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Permanent Deployment</h3>
+                        <p>Deployed on <strong>Hugging Face Spaces</strong> for 24/7 availability</p>
+                    </div>
+                    <div class="highlight-card">
+                        <i class="fas fa-language"></i>
+                        <h3>Bilingual Support</h3>
+                        <p>Supports both English and Chinese prompts seamlessly</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 專案特色 -->
+            <div class="project-section fade-in-up">
+                <h2>Project Features</h2>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check"></i> Instant generation of structured 5-slide PowerPoint outlines</li>
+                    <li><i class="fas fa-check"></i> High-quality output trained on curated datasets</li>
+                    <li><i class="fas fa-check"></i> User-friendly interface for quick prototyping</li>
+                    <li><i class="fas fa-check"></i> Optimized for educational and business presentations</li>
+                </ul>
+            </div>
+
+            <div class="project-footer fade-in-up">
+                <a href="https://chengmanyu-ppt-ai-outline.hf.space/" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i> Visit Live Demo
+                </a>
+                <a href="../index.html#projects" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Projects
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- 頁腳 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cheng Man Yu (Jeff). All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
 </body>
 </html>
