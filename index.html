@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) }" :class="{ 'dark': darkMode }">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cheng Man Yu (Jeff) – AI & Software Engineer</title>
+    <title>Cheng Man Yu (Jeff) – AI & Software Enthusiast</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- tsParticles -->
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.5.0/tsparticles.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles-preset-stars@3.5.0/tsparticles.preset.stars.min.js"></script>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -19,20 +27,26 @@
         .fade-in.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300 relative">
+<body class="bg-gray-50 text-gray-900 min-h-screen transition-colors duration-300 relative">
 
-    <!-- 粒子背景 -->
+    <!-- 粒子背景容器 -->
     <div id="tsparticles" class="fixed inset-0 z-[-1]"></div>
 
     <!-- Navigation -->
-    <nav class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-200">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Jeff Cheng</h1>
-            <div class="space-x-8 text-sm font-medium">
-                <a href="#about" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">About</a>
-                <a href="#projects" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Projects</a>
-                <a href="cv.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">CV</a>
-                <a href="https://github.com/chengmanyu" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">GitHub</a>
+            <h1 class="text-2xl font-bold text-indigo-600">Jeff Cheng</h1>
+            <div class="flex items-center gap-8 text-sm font-medium">
+                <a href="#about" class="hover:text-indigo-600 transition">About</a>
+                <a href="#projects" class="hover:text-indigo-600 transition">Projects</a>
+                <a href="cv.html" class="hover:text-indigo-600 transition">CV</a>
+                <a href="https://github.com/chengmanyu" target="_blank" class="hover:text-indigo-600 transition">GitHub</a>
+                
+                <!-- 暗黑模式切換按鈕（這裡改成簡單圖示 + 文字） -->
+                <button id="theme-toggle" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition">
+                    <i id="theme-icon" class="fas fa-moon text-gray-700 dark:text-yellow-300"></i>
+                    <span id="theme-text" class="text-sm font-medium">Dark Mode</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -55,24 +69,25 @@
         <div class="grid md:grid-cols-2 gap-16 items-center">
             <div class="fade-in">
                 <p class="text-xl leading-relaxed mb-8">
-                    I am an aspiring AI Engineer passionate about building intelligent applications using large language models and modern web technologies. 
+                    Passionate about building intelligent applications with large language models and modern web technologies. 
                     Currently pursuing a BSc in Computer Science with AI Concentration at Hong Kong Baptist University.
                 </p>
 
                 <div class="space-y-8 text-lg">
                     <div>
-                        <h3 class="font-semibold text-2xl mb-4 text-indigo-600 dark:text-indigo-400">Education</h3>
-                        <p>• BSc (Hons) Computer Science – AI Concentration, HKBU (2025–2027)</p>
-                        <p>• Higher Diploma in AI and Mobile Applications Development, IVE (2023–2025)</p>
+                        <h3 class="font-semibold text-2xl mb-4 text-indigo-600">Education</h3>
+                        <p>• Bachelor of Science (Hons) in Computer Science - Artificial Intelligence Concentration, HKBU (09-25 – 09-27)</p>
+                        <p>• Higher Diploma in AI and Mobile Applications Development, IVE (Tuen Mun) (09-23 – 09-25)</p>
+                        <p class="text-sm mt-1">• Obtain five scholarships</p>
                     </div>
 
                     <div>
-                        <h3 class="font-semibold text-2xl mb-4 text-indigo-600 dark:text-indigo-400">Experience</h3>
-                        <p>• Assistant AI Training Specialist, iN and iN Management Limited (2024)</p>
+                        <h3 class="font-semibold text-2xl mb-4 text-indigo-600">Work Experience</h3>
+                        <p>• Assistant AI Training Specialist, iN and iN Management Limited (07-24 – 08-24)</p>
                     </div>
 
                     <div>
-                        <h3 class="font-semibold text-2xl mb-4 text-indigo-600 dark:text-indigo-400">Languages</h3>
+                        <h3 class="font-semibold text-2xl mb-4 text-indigo-600">Languages</h3>
                         <p>• Native speaker of Cantonese</p>
                         <p>• Fluent in Mandarin</p>
                         <p>• English as the medium of communication</p>
@@ -84,30 +99,30 @@
                 </a>
             </div>
 
-            <!-- 頭像（使用你上傳的 anime_icon2.jpg） -->
+            <!-- 頭像 -->
             <div class="fade-in text-center">
                 <div class="relative w-80 h-80 mx-auto">
                     <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full animate-pulse opacity-30"></div>
                     <img src="assets/images/anime_icon2.jpg" 
                          alt="Cheng Man Yu (Jeff)" 
-                         class="relative w-full h-full object-cover rounded-full border-8 border-white dark:border-gray-900 shadow-2xl">
+                         class="relative w-full h-full object-cover rounded-full border-8 border-white shadow-2xl">
                 </div>
                 <p class="mt-6 text-2xl font-semibold">Cheng Man Yu (Jeff)</p>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="max-w-6xl mx-auto px-6 py-20 bg-gray-100 dark:bg-gray-900/50">
+    <!-- Projects -->
+    <section id="projects" class="max-w-6xl mx-auto px-6 py-20 bg-gray-100">
         <h2 class="text-5xl font-bold text-center mb-16">Featured Projects</h2>
         <div class="grid md:grid-cols-2 gap-12">
-            <div class="project-card bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-2xl">
+            <div class="project-card bg-white rounded-3xl overflow-hidden shadow-2xl">
                 <div class="h-64 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                    <span class="text-9xl">📊✨</span>
+                    <span class="text-9xl drop-shadow-2xl">📊✨</span>
                 </div>
                 <div class="p-10">
                     <h3 class="text-3xl font-bold mb-4">PPT Outline AI Generator</h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-6 text-lg">
+                    <p class="text-gray-600 mb-6 text-lg">
                         AI tool that instantly generates professional 5-slide PowerPoint outlines from any topic.
                     </p>
                     <a href="projects/ppt-outline.html" class="block text-center bg-indigo-600 text-white py-4 rounded-xl font-bold hover:bg-indigo-700 transition text-lg">
@@ -120,18 +135,19 @@
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-12 text-center">
-        <p>© 2026 Cheng Man Yu (Jeff). Built with passion.</p>
+        <p>© 2026 Cheng Man Yu (Jeff). Built with curiosity & code.</p>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        // tsParticles - 星星粒子背景
+        // tsParticles 初始化（星星背景）
         tsParticles.load("tsparticles", {
             preset: "stars",
             background: { color: { value: "transparent" } },
             particles: {
-                number: { value: 100 },
+                number: { value: 80 },
                 color: { value: "#a5b4fc" },
-                opacity: { value: 0.7, random: true },
+                opacity: { value: 0.6, random: true },
                 size: { value: { min: 1, max: 4 } },
                 move: { enable: true, speed: 0.6, direction: "none", random: true }
             },
@@ -149,6 +165,30 @@
             });
         }, { threshold: 0.15 });
         fadeElements.forEach(el => observer.observe(el));
+
+        // 手動暗黑模式切換
+        const toggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+
+        function updateTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.className = 'fas fa-sun text-yellow-300';
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.className = 'fas fa-moon text-gray-700';
+                themeText.textContent = 'Dark Mode';
+            }
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            updateTheme();
+        });
+
+        // 初始設定
+        updateTheme();
     </script>
 </body>
 </html>
