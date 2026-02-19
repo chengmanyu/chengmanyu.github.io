@@ -759,13 +759,16 @@ class ChatBot {
         this.addMessage('user', this.escapeHtml(text));
     }
 
-    addBotMessage(text) {
-        this.addMessage('bot', this.formatText(text));
-        if (speechManager.isVoiceEnabled) {
-            const lang = /[\u4e00-\u9fa5]/.test(text) ? 'zh-TW' : 'en-US';
-            speechManager.speak(text, lang);
+addBotMessage(text) {
+    this.addMessage('bot', this.formatText(text));
+    if (speechManager.isVoiceEnabled) {
+        const lang = /[\u4e00-\u9fa5]/.test(text) ? 'zh-TW' : 'en-US';
+        const cleanText = removeEmojis(text);
+        if (cleanText.trim()) {
+            speechManager.speak(cleanText, lang);
         }
     }
+}
 
     addLoading() {
         const div = document.createElement('div');
@@ -790,6 +793,11 @@ class ChatBot {
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/\n/g, '<br>');
     }
+
+    // 移除所有 emoji，只保留文字給語音
+function removeEmojis(text) {
+    return text.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]+/gu, '');
+}
 
     async send() {
         const text = this.input.value.trim();
