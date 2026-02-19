@@ -696,28 +696,19 @@ const speechManager = new SpeechManager();
 
 // 將 emoji 轉成口語描述（給語音用），並移除其他未映射的 emoji
 function convertEmojisToSpeech(text) {
-    // 常見 emoji 映射到繁體中文描述（你可以根據需要擴充）
-    const emojiMap = {
-        '😊': '微笑',    // 你例子中的 😊
-        '👍': '讚',      // thumbs up
-        '❤️': '愛心',   // heart
-        '🔧': '工具',    // wrench
-        '📱': '手機',    // mobile phone
-        '🎓': '畢業帽',  // graduation cap
-        '👋': '揮手',    // waving hand
-        // 加更多：例如 '😄': '大笑', '🚀': '火箭' 等
+    // 只保留你想說的少數 emoji 描述
+    const keepMap = {
+        '❤️': '愛心',
+        '👍': '讚',
+        // 只加你真的想保留的，其他都不加
     };
 
-    // 先替換映射中的 emoji
-    for (const [emoji, desc] of Object.entries(emojiMap)) {
+    for (const [emoji, desc] of Object.entries(keepMap)) {
         text = text.replace(new RegExp(emoji, 'g'), desc);
     }
-try {
-    // 然後移除其他所有 emoji（擴大正則範圍，涵蓋更多 Unicode 區塊）
+
+    // 移除剩下所有 emoji
     return text.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F3FB}-\u{1F3FF}]+/gu, '');
-    } catch (e) {
-    return text; // 備用：不移除
-}
 }
         
 
