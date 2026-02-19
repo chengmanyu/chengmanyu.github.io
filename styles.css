@@ -752,6 +752,75 @@ body {
     
 /*this part below is for the chatbot design*/
 
+    /* 聊天窗口頭部控制按鈕 */
+.chatbot-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.voice-toggle-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.6rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    border-radius: 50%;
+}
+
+.voice-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.voice-toggle-btn.active {
+    background: #2ecc71;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.6);
+}
+
+.voice-toggle-btn.speaking {
+    animation: voice-pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes voice-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(46, 204, 113, 0.3);
+    }
+}
+
+/* 音頻播放指示器 */
+.sound-indicator {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 12px;
+    height: 12px;
+    background: #2ecc71;
+    border-radius: 50%;
+    animation: blink 0.8s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+    
+
   /* ========== 聊天機器人設計 - 匹配頁面風格 ========== */
 
 /* 浮動聊天機器人球體 */
