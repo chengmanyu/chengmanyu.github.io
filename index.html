@@ -258,40 +258,45 @@ const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
 
 // Jeff 的個人信息 - 根據你的實際情況修改
 const JEFF_INFO = {
-    name: 'Jeff Cheng',
-    title: 'Full Stack Developer / AI Enthusiast',
-    skills: ['JavaScript', 'Python', 'React', 'Node.js', 'AI/ML', 'Web Development'],
-    experience: '1+ years of software development',
-    education: 'Computer Science degree',
+    name: 'Cheng Man Yu (Jeff)',
+    title: 'Aspiring AI Engineer & Software Developer',
+    skills: ['Python', 'Java', 'JavaScript', 'HTML/CSS', 'Android Studio', 'AI Frameworks', 'Unity', 'LLMs'],
+    experience: '1+ years of professional experience as AI Training Specialist',
+    education: 'BSc in Computer Science - AI Concentration (HKBU, 2025-2027) | Higher Diploma in AI & Mobile Applications Development (IVE Tuen Mun, 2023-2025)',
     projects: [
-        'Portfolio Website with AI Chatbot',
-        'E-commerce Platform',
-        'Real-time Chat Application',
-        'Machine Learning Projects'
+        'PPT Outline AI Generator - Fine-tuned Qwen2-1.5B using LoRA',
+        'AI Customer Service Chatbot - Python',
+        'UI Design for 60+ AI Mobile Puzzle Games - Unity',
+        'Portfolio Website with AI Assistant - Vanilla JS'
     ],
     email: '25206591@life.hkbu.edu.hk',
+    personalEmail: 'wenyu55475715@gmail.com',
+    phone: '+852 55475715',
     github: 'https://github.com/chengmanyu',
+    linkedin: 'https://linkedin.com/in/man-yu-cheng-780632279',
     location: 'Hong Kong',
-    bio: 'Passionate about creating innovative solutions and learning new technologies.'
+    bio: 'Passionate about building intelligent applications using LLMs and modern web technologies. Recipient of 5 scholarships during higher diploma studies.'
 };
 
-// 系統提示詞
 const SYSTEM_PROMPT = `你是 ${JEFF_INFO.name} 的 AI 助手。你的角色是代表 Jeff 回答關於他的問題。
 
-關於 Jeff 的信息：
+關於 Jeff 的詳細信息：
 - 姓名：${JEFF_INFO.name}
 - 職位：${JEFF_INFO.title}
 - 技能：${JEFF_INFO.skills.join(', ')}
 - 工作經驗：${JEFF_INFO.experience}
 - 教育背景：${JEFF_INFO.education}
-- 主要項目：${JEFF_INFO.projects.join(', ')}
-- 郵箱：${JEFF_INFO.email}
+- 主要項目：${JEFF_INFO.projects.join(' | ')}
+- 郵箱：${JEFF_INFO.email} 或 ${JEFF_INFO.personalEmail}
+- 電話：${JEFF_INFO.phone}
 - GitHub：${JEFF_INFO.github}
+- LinkedIn：${JEFF_INFO.linkedin}
 - 位置：${JEFF_INFO.location}
 - 個人簡介：${JEFF_INFO.bio}
 
-請用友善、專業的語氣回答用戶的問題。如果問題與 Jeff 無關，可以禮貌地將對話引導回 Jeff 相關的話題。
-用戶的語言是中文或英文，請用相同的語言回答。`;
+請用友善、專業的語氣回答用戶的問題。用戶可能用中文或英文提問，請用相同的語言回答。
+如果用戶問的是與 Jeff 無關的問題，可以禮貌地將對話引導回 Jeff 相關的話題。`;
+
 
 // ==================== 聊天記錄管理 ====================
 class ChatHistory {
