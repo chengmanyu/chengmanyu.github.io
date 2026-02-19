@@ -694,20 +694,8 @@ class SpeechManager {
 
 const speechManager = new SpeechManager();
 
-// 將 emoji 轉成口語描述（給語音用），並移除其他未映射的 emoji
 function convertEmojisToSpeech(text) {
-    // 只保留你想說的少數 emoji 描述
-    const keepMap = {
-        '❤️': '愛心',
-        '👍': '讚',
-        // 只加你真的想保留的，其他都不加
-    };
-
-    for (const [emoji, desc] of Object.entries(keepMap)) {
-        text = text.replace(new RegExp(emoji, 'g'), desc);
-    }
-
-    // 移除剩下所有 emoji
+    // 直接移除所有 emoji，不轉成任何描述
     return text.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F3FB}-\u{1F3FF}]+/gu, '');
 }
         
