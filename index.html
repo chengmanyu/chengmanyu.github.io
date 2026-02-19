@@ -231,6 +231,12 @@
         <h3>Jeff's AI Assistant</h3>
         <p class="chatbot-status">Online</p>
     </div>
+            <div class="chatbot-header-controls">
+    <button class="voice-toggle-btn" id="voiceToggleBtn" title="切換語音">
+        <i class="fas fa-volume-up"></i>
+    </button>
+</div>
+
 </div>
 <div class="chatbot-header-controls">
     <button class="voice-toggle-btn" id="voiceToggleBtn" title="Enable/Disable voice">
@@ -603,6 +609,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatbot = new ChatBot();
     console.log('💬 AI Chatbot with Voice Synthesis initialized successfully!');
 });
+
+        // 聊天窗口可拖曳功能
+let isDragging = false;
+let currentX;
+let currentY;
+let initialX;
+let initialY;
+let xOffset = 0;
+let yOffset = 0;
+
+const chatbotWindow = document.querySelector('.chatbot-window');
+const chatbotHeader = document.querySelector('.chatbot-header');
+
+chatbotHeader.addEventListener('mousedown', dragStart);
+document.addEventListener('mousemove', drag);
+document.addEventListener('mouseup', dragEnd);
+
+// 觸控支援
+chatbotHeader.addEventListener('touchstart', dragStart);
+document.addEventListener('touchmove', drag);
+document.addEventListener('touchend', dragEnd);
+
+function dragStart(e) {
+    if (e.type === "touchstart") {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+    } else {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+    }
+
+    if (e.target === chatbotHeader || chatbotHeader.contains(e.target)) {
+        isDragging = true;
+        chatbotHeader.style.cursor = 'grabbing';
+    }
+}
+
+function drag(e) {
+    if (isDragging) {
+        e.preventDefault();
+        
+        if (e.type === "touchmove") {
+            currentX = e.touches[0].clientX - initialX;
+            currentY = e.touches[0].clientY - initialY;
+        } else {
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+        }
+
+        xOffset = currentX;
+        yOffset = currentY;
+
+        setTranslate(currentX, currentY, chatbotWindow);
+    }
+}
+
+function dragEnd(e) {
+    initialX = currentX;
+    initialY = currentY;
+    isDragging = false;
+    chatbotHeader.style.cursor = 'grab';
+}
+
+function setTranslate(xPos, yPos, el) {
+    el.style.transform = `translate(${xPos}px, ${yPos}px)`;
+}
+
 //-------------------------chatbot code end -------------------------
 
     </script>
