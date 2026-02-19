@@ -607,7 +607,6 @@
 
     
     <script>
-//-------------------------- chatbot------------------------
 // ==================== 聊天機器人配置 ====================
 const DEEPSEEK_API_KEY = 'sk-e21a1283d3804330a9a06a1134fccf80';
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
@@ -659,20 +658,14 @@ class ChatHistory {
         this.messages = [];
         this.maxMessages = maxMessages;
     }
-
     addMessage(role, content) {
         this.messages.push({ role, content });
         if (this.messages.length > this.maxMessages) {
             this.messages = this.messages.slice(-this.maxMessages);
         }
     }
-
     getMessages() {
         return this.messages;
-    }
-
-    clear() {
-        this.messages = [];
     }
 }
 
@@ -681,75 +674,36 @@ class SpeechManager {
     constructor() {
         this.isVoiceEnabled = false;
         this.isSpeaking = false;
-        this.currentUtterance = null;
         this.synth = window.speechSynthesis;
-        this.initializeVoiceSettings();
-    }
-
-    initializeVoiceSettings() {
-        if (!this.synth) {
-            console.warn('Web Speech API is not supported in this browser');
-            return;
-        }
     }
 
     speak(text, language = 'en-US') {
-        if (this.isSpeaking) {
-            this.stopSpeaking();
-        }
+        if (this.isSpeaking) this.synth.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = language;
+        utterance.rate = 1;
+        utterance.pitch = 1;
+        utterance.volume = 1;
 
-        this.currentUtterance = new SpeechSynthesisUtterance(text);
-        this.currentUtterance.lang = language;
-        this.currentUtterance.rate = 1;
-        this.currentUtterance.pitch = 1;
-        this.currentUtterance.volume = 1;
-
-        this.currentUtterance.onstart = () => {
-            this.isSpeaking = true;
-            this.updateSpeakingIndicator(true);
-        };
-
-        this.currentUtterance.onend = () => {
-            this.isSpeaking = false;
-            this.updateSpeakingIndicator(false);
-        };
-
-        this.currentUtterance.onerror = (event) => {
-            console.error('Speech synthesis error:', event.error);
-            this.isSpeaking = false;
-            this.updateSpeakingIndicator(false);
-        };
-
-        this.synth.speak(this.currentUtterance);
+        utterance.onstart = () => { this.isSpeaking = true; };
+        utterance.onend = () => { this.isSpeaking = false; };
+        this.synth.speak(utterance);
     }
 
     stopSpeaking() {
         this.synth.cancel();
         this.isSpeaking = false;
-        this.updateSpeakingIndicator(false);
-    }
-
-    updateSpeakingIndicator(speaking) {
-        const voiceBtn = document.getElementById('voiceToggleBtn');
-        if (voiceBtn) {
-            if (speaking) {
-                voiceBtn.classList.add('speaking');
-            } else {
-                voiceBtn.classList.remove('speaking');
-            }
-        }
     }
 
     toggleVoice() {
         this.isVoiceEnabled = !this.isVoiceEnabled;
-        const voiceBtn = document.getElementById('voiceToggleBtn');
-        
+        const btn = document.getElementById('voiceToggleBtn');
         if (this.isVoiceEnabled) {
-            voiceBtn.classList.add('active');
-            voiceBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            btn.classList.add('active');
+            btn.innerHTML = '<i class="fas fa-volume-up"></i>';
         } else {
-            voiceBtn.classList.remove('active');
-            voiceBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            btn.classList.remove('active');
+            btn.innerHTML = '<i class="fas fa-volume-mute"></i>';
             this.stopSpeaking();
         }
     }
@@ -762,265 +716,159 @@ class ChatBot {
     constructor() {
         this.chatHistory = new ChatHistory();
         this.isLoading = false;
-        this.initializeDOM();
-        this.attachEventListeners();
+        this.init();
     }
 
-    initializeDOM() {
-        this.chatbotBall = document.getElementById('chatbotBall');
-        this.chatbotWindow = document.getElementById('chatbotWindow');
-        this.chatMessages = document.getElementById('chatMessages');
-        this.userInput = document.getElementById('userInput');
+    init() {
+        this.ball = document.getElementById('chatbotBall');
+        this.window = document.getElementById('chatbotWindow');
+        this.messages = document.getElementById('chatMessages');
+        this.input = document.getElementById('userInput');
         this.sendBtn = document.getElementById('sendBtn');
         this.closeBtn = document.getElementById('closeBtn');
-        this.voiceToggleBtn = document.getElementById('voiceToggleBtn');
-    }
+        this.voiceBtn = document.getElementById('voiceToggleBtn');
 
-    attachEventListeners() {
-        this.chatbotBall.addEventListener('click', () => this.toggleChatWindow());
-        this.closeBtn.addEventListener('click', () => this.closeChatWindow());
-        this.sendBtn.addEventListener('click', () => this.sendMessage());
-        this.voiceToggleBtn.addEventListener('click', () => speechManager.toggleVoice());
-        this.userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !this.isLoading) {
-                this.sendMessage();
-            }
+        this.ball.addEventListener('click', () => this.toggle());
+        this.closeBtn.addEventListener('click', () => this.close());
+        this.sendBtn.addEventListener('click', () => this.send());
+        this.voiceBtn.addEventListener('click', () => speechManager.toggleVoice());
+        this.input.addEventListener('keypress', e => {
+            if (e.key === 'Enter' && !this.isLoading) this.send();
         });
+
+        // 右鍵隱藏球體
+        this.ball.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            this.ball.style.display = 'none';
+            localStorage.setItem('hideChatbotBall', 'true');
+            this.close();
+        });
+
+        // 檢查是否隱藏
+        if (localStorage.getItem('hideChatbotBall') === 'true') {
+            this.ball.style.display = 'none';
+        }
     }
 
-    toggleChatWindow() {
-        this.chatbotWindow.classList.toggle('active');
-        if (this.chatbotWindow.classList.contains('active')) {
-            this.userInput.focus();
-            if (this.chatMessages.children.length === 0) {
-                this.addBotMessage('你好！👋 我是 Jeff 的 AI 助手。有什麼我可以幫助你了解 Jeff 的嗎？');
+    toggle() {
+        this.window.classList.toggle('active');
+        if (this.window.classList.contains('active')) {
+            this.input.focus();
+            if (this.messages.children.length === 0) {
+                this.addBotMessage('你好！我是 Jeff 的 AI 助手。有什麼可以幫你的？');
             }
         }
     }
 
-    closeChatWindow() {
-        this.chatbotWindow.classList.remove('active');
+    close() {
+        this.window.classList.remove('active');
         speechManager.stopSpeaking();
     }
 
-    addUserMessage(content) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message user';
-        messageDiv.innerHTML = `<div class="message-bubble">${this.escapeHtml(content)}</div>`;
-        this.chatMessages.appendChild(messageDiv);
-        this.scrollToBottom();
+    addMessage(className, content) {
+        const div = document.createElement('div');
+        div.className = `message ${className}`;
+        div.innerHTML = `<div class="message-bubble">${content}</div>`;
+        this.messages.appendChild(div);
+        this.messages.scrollTop = this.messages.scrollHeight;
     }
 
-    addBotMessage(content) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message bot';
-        messageDiv.innerHTML = `<div class="message-bubble">${this.formatBotMessage(content)}</div>`;
-        this.chatMessages.appendChild(messageDiv);
-        this.scrollToBottom();
+    addUserMessage(text) {
+        this.addMessage('user', this.escapeHtml(text));
+    }
 
-        // 如果語音已啟用，讀出消息
+    addBotMessage(text) {
+        this.addMessage('bot', this.formatText(text));
         if (speechManager.isVoiceEnabled) {
-            const language = this.detectLanguage(content);
-            speechManager.speak(content, language);
+            const lang = /[\u4e00-\u9fa5]/.test(text) ? 'zh-TW' : 'en-US';
+            speechManager.speak(text, lang);
         }
     }
 
-    addLoadingMessage() {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message bot';
-        messageDiv.id = 'loadingMessage';
-        messageDiv.innerHTML = `
-            <div class="loading">
-                <div class="loading-dot"></div>
-                <div class="loading-dot"></div>
-                <div class="loading-dot"></div>
-            </div>
-        `;
-        this.chatMessages.appendChild(messageDiv);
-        this.scrollToBottom();
+    addLoading() {
+        const div = document.createElement('div');
+        div.className = 'message bot';
+        div.id = 'loading';
+        div.innerHTML = '<div class="loading"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>';
+        this.messages.appendChild(div);
+        this.messages.scrollTop = this.messages.scrollHeight;
     }
 
-    removeLoadingMessage() {
-        const loadingMsg = document.getElementById('loadingMessage');
-        if (loadingMsg) {
-            loadingMsg.remove();
-        }
-    }
-
-    scrollToBottom() {
-        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+    removeLoading() {
+        document.getElementById('loading')?.remove();
     }
 
     escapeHtml(text) {
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, m => map[m]);
+        return text.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;' }[m]));
     }
 
-    formatBotMessage(content) {
-        return content
+    formatText(text) {
+        return text
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/\n/g, '<br/>');
+            .replace(/\n/g, '<br>');
     }
 
-    detectLanguage(text) {
-        const chineseRegex = /[\u4E00-\u9FFF]/g;
-        const chineseCount = (text.match(chineseRegex) || []).length;
-        
-        if (chineseCount > text.length * 0.3) {
-            return 'zh-TW';
-        }
-        return 'en-US';
-    }
+    async send() {
+        const text = this.input.value.trim();
+        if (!text || this.isLoading) return;
 
-    async sendMessage() {
-        const userMessage = this.userInput.value.trim();
-        
-        if (!userMessage || this.isLoading) {
-            return;
-        }
+        this.input.value = '';
+        this.addUserMessage(text);
+        this.chatHistory.addMessage('user', text);
 
-        this.userInput.value = '';
-        this.addUserMessage(userMessage);
-        this.chatHistory.addMessage('user', userMessage);
-        
         this.isLoading = true;
         this.sendBtn.disabled = true;
-        this.addLoadingMessage();
+        this.addLoading();
 
         try {
-            const response = await this.callDeepSeekAPI(userMessage);
-            this.removeLoadingMessage();
-            this.addBotMessage(response);
-            this.chatHistory.addMessage('assistant', response);
-        } catch (error) {
-            this.removeLoadingMessage();
-            console.error('API Error:', error);
-            this.addBotMessage('抱歉，我遇到了一個錯誤。請稍後再試。');
+            const reply = await this.getReply(text);
+            this.removeLoading();
+            this.addBotMessage(reply);
+            this.chatHistory.addMessage('assistant', reply);
+        } catch (err) {
+            this.removeLoading();
+            this.addBotMessage('抱歉，出了點問題... 請稍後再試');
+            console.error(err);
         } finally {
             this.isLoading = false;
             this.sendBtn.disabled = false;
-            this.userInput.focus();
+            this.input.focus();
         }
     }
 
-    async callDeepSeekAPI(userMessage) {
+    async getReply(userMessage) {
         const messages = [
             { role: 'system', content: SYSTEM_PROMPT },
             ...this.chatHistory.getMessages()
         ];
 
-        const payload = {
-            model: 'deepseek-chat',
-            messages: messages,
-            temperature: 0.7,
-            max_tokens: 1000,
-            stream: false
-        };
+        const res = await fetch(DEEPSEEK_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: 'deepseek-chat',
+                messages,
+                temperature: 0.7,
+                max_tokens: 1000,
+                stream: false
+            })
+        });
 
-        try {
-            const response = await fetch(DEEPSEEK_API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(`API Error: ${response.status} - ${JSON.stringify(errorData)}`);
-            }
-
-            const data = await response.json();
-            return data.choices[0].message.content;
-        } catch (error) {
-            console.error('DeepSeek API Error:', error);
-            throw error;
-        }
+        if (!res.ok) throw new Error('API request failed');
+        const data = await res.json();
+        return data.choices[0].message.content;
     }
 }
 
-// ==================== 初始化 ====================
+// 初始化
 document.addEventListener('DOMContentLoaded', () => {
-    const chatbot = new ChatBot();
-    console.log('💬 AI Chatbot with Voice Synthesis initialized successfully!');
+    new ChatBot();
+    console.log('Chatbot initialized');
 });
-
-        // 聊天窗口可拖曳功能
-let isDragging = false;
-let currentX;
-let currentY;
-let initialX;
-let initialY;
-let xOffset = 0;
-let yOffset = 0;
-
-const chatbotWindow = document.querySelector('.chatbot-window');
-const chatbotHeader = document.querySelector('.chatbot-header');
-
-chatbotHeader.addEventListener('mousedown', dragStart);
-document.addEventListener('mousemove', drag);
-document.addEventListener('mouseup', dragEnd);
-
-// 觸控支援
-chatbotHeader.addEventListener('touchstart', dragStart);
-document.addEventListener('touchmove', drag);
-document.addEventListener('touchend', dragEnd);
-
-function dragStart(e) {
-    if (e.type === "touchstart") {
-        initialX = e.touches[0].clientX - xOffset;
-        initialY = e.touches[0].clientY - yOffset;
-    } else {
-        initialX = e.clientX - xOffset;
-        initialY = e.clientY - yOffset;
-    }
-
-    if (e.target === chatbotHeader || chatbotHeader.contains(e.target)) {
-        isDragging = true;
-        chatbotHeader.style.cursor = 'grabbing';
-    }
-}
-
-function drag(e) {
-    if (isDragging) {
-        e.preventDefault();
-        
-        if (e.type === "touchmove") {
-            currentX = e.touches[0].clientX - initialX;
-            currentY = e.touches[0].clientY - initialY;
-        } else {
-            currentX = e.clientX - initialX;
-            currentY = e.clientY - initialY;
-        }
-
-        xOffset = currentX;
-        yOffset = currentY;
-
-        setTranslate(currentX, currentY, chatbotWindow);
-    }
-}
-
-function dragEnd(e) {
-    initialX = currentX;
-    initialY = currentY;
-    isDragging = false;
-    chatbotHeader.style.cursor = 'grab';
-}
-
-function setTranslate(xPos, yPos, el) {
-    el.style.transform = `translate(${xPos}px, ${yPos}px)`;
-}
-
-//-------------------------chatbot code end -------------------------
 
     </script>
 </body>
