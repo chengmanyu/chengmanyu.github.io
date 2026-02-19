@@ -909,6 +909,7 @@ body {
     z-index: 998;
     backdrop-filter: blur(10px);
     animation: slideUp 0.4s ease-out;
+    transition: none;
 }
 
 .chatbot-window.active {
@@ -936,7 +937,13 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    user-select: none; /* 防止拖曳時選中文字 */
 }
+
+    .chatbot-header:active {
+    cursor: grabbing;
+}
+    
 
 .chatbot-header-content {
     display: flex;
