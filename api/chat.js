@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`
       },
-      body: JSON.stringify(req.body)  // 直接轉發前端的 payload
+      body: JSON.stringify(req.body)
     });
 
     if (!response.ok) {
