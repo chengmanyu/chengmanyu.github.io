@@ -257,12 +257,12 @@
 
     
     <script>
-        //-------------------------- chatbot------------------------
+//-------------------------- chatbot------------------------
 // ==================== 聊天機器人配置 ====================
 const DEEPSEEK_API_KEY = 'sk-e21a1283d3804330a9a06a1134fccf80';
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
 
-// Jeff 的個人信息 - 根據你的實際情況修改
+// Jeff 的個人信息
 const JEFF_INFO = {
     name: 'Cheng Man Yu (Jeff)',
     title: 'Aspiring AI Engineer & Software Developer',
@@ -303,7 +303,6 @@ const SYSTEM_PROMPT = `你是 ${JEFF_INFO.name} 的 AI 助手。你的角色是�
 請用友善、專業的語氣回答用戶的問題。用戶可能用中文或英文提問，請用相同的語言回答。
 如果用戶問的是與 Jeff 無關的問題，可以禮貌地將對話引導回 Jeff 相關的話題。`;
 
-
 // ==================== 聊天記錄管理 ====================
 class ChatHistory {
     constructor(maxMessages = 20) {
@@ -313,7 +312,6 @@ class ChatHistory {
 
     addMessage(role, content) {
         this.messages.push({ role, content });
-        // 保持消息數量在限制內
         if (this.messages.length > this.maxMessages) {
             this.messages = this.messages.slice(-this.maxMessages);
         }
@@ -327,6 +325,87 @@ class ChatHistory {
         this.messages = [];
     }
 }
+
+// ==================== 語音管理器 ====================
+class SpeechManager {
+    constructor() {
+        this.isVoiceEnabled = false;
+        this.isSpeaking = false;
+        this.currentUtterance = null;
+        this.synth = window.speechSynthesis;
+        this.initializeVoiceSettings();
+    }
+
+    initializeVoiceSettings() {
+        if (!this.synth) {
+            console.warn('Web Speech API is not supported in this browser');
+            return;
+        }
+    }
+
+    speak(text, language = 'en-US') {
+        if (this.isSpeaking) {
+            this.stopSpeaking();
+        }
+
+        this.currentUtterance = new SpeechSynthesisUtterance(text);
+        this.currentUtterance.lang = language;
+        this.currentUtterance.rate = 1;
+        this.currentUtterance.pitch = 1;
+        this.currentUtterance.volume = 1;
+
+        this.currentUtterance.onstart = () => {
+            this.isSpeaking = true;
+            this.updateSpeakingIndicator(true);
+        };
+
+        this.currentUtterance.onend = () => {
+            this.isSpeaking = false;
+            this.updateSpeakingIndicator(false);
+        };
+
+        this.currentUtterance.onerror = (event) => {
+            console.error('Speech synthesis error:', event.error);
+            this.isSpeaking = false;
+            this.updateSpeakingIndicator(false);
+        };
+
+        this.synth.speak(this.currentUtterance);
+    }
+
+    stopSpeaking() {
+        this.synth.cancel();
+        this.isSpeaking = false;
+        this.updateSpeakingIndicator(false);
+    }
+
+    updateSpeakingIndicator(speaking) {
+        const voiceBtn = document.getElementById('voiceToggleBtn');
+        if (voiceBtn) {
+            if (speaking) {
+                voiceBtn.classList.add('speaking');
+            } else {
+                voiceBtn.classList.remove('speaking');
+            }
+        }
+    }
+
+    toggleVoice() {
+        this.isVoiceEnabled = !this.isVoiceEnabled;
+        const voiceBtn = document.getElementById('voiceToggleBtn');
+        
+        if (this.isVoiceEnabled) {
+            voiceBtn.classList.add('active');
+            voiceBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        } else {
+            voiceBtn.classList.remove('active');
+            voiceBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            this.stopSpeaking();
+        }
+    }
+}
+
+const speechManager = new SpeechManager();
 
 // ==================== 聊天機器人類 ====================
 class ChatBot {
@@ -344,12 +423,14 @@ class ChatBot {
         this.userInput = document.getElementById('userInput');
         this.sendBtn = document.getElementById('sendBtn');
         this.closeBtn = document.getElementById('closeBtn');
+        this.voiceToggleBtn = document.getElementById('voiceToggleBtn');
     }
 
     attachEventListeners() {
         this.chatbotBall.addEventListener('click', () => this.toggleChatWindow());
         this.closeBtn.addEventListener('click', () => this.closeChatWindow());
         this.sendBtn.addEventListener('click', () => this.sendMessage());
+        this.voiceToggleBtn.addEventListener('click', () => speechManager.toggleVoice());
         this.userInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !this.isLoading) {
                 this.sendMessage();
@@ -361,7 +442,6 @@ class ChatBot {
         this.chatbotWindow.classList.toggle('active');
         if (this.chatbotWindow.classList.contains('active')) {
             this.userInput.focus();
-            // 首次打開時添加歡迎消息
             if (this.chatMessages.children.length === 0) {
                 this.addBotMessage('你好！👋 我是 Jeff 的 AI 助手。有什麼我可以幫助你了解 Jeff 的嗎？');
             }
@@ -370,6 +450,7 @@ class ChatBot {
 
     closeChatWindow() {
         this.chatbotWindow.classList.remove('active');
+        speechManager.stopSpeaking();
     }
 
     addUserMessage(content) {
@@ -386,6 +467,12 @@ class ChatBot {
         messageDiv.innerHTML = `<div class="message-bubble">${this.formatBotMessage(content)}</div>`;
         this.chatMessages.appendChild(messageDiv);
         this.scrollToBottom();
+
+        // 如果語音已啟用，讀出消息
+        if (speechManager.isVoiceEnabled) {
+            const language = this.detectLanguage(content);
+            speechManager.speak(content, language);
+        }
     }
 
     addLoadingMessage() {
@@ -426,11 +513,20 @@ class ChatBot {
     }
 
     formatBotMessage(content) {
-        // 簡單的 Markdown 格式化
         return content
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/\n/g, '<br/>');
+    }
+
+    detectLanguage(text) {
+        const chineseRegex = /[\u4E00-\u9FFF]/g;
+        const chineseCount = (text.match(chineseRegex) || []).length;
+        
+        if (chineseCount > text.length * 0.3) {
+            return 'zh-TW';
+        }
+        return 'en-US';
     }
 
     async sendMessage() {
@@ -440,16 +536,10 @@ class ChatBot {
             return;
         }
 
-        // 清空輸入框
         this.userInput.value = '';
-        
-        // 添加用戶消息到 UI
         this.addUserMessage(userMessage);
-        
-        // 添加用戶消息到歷史
         this.chatHistory.addMessage('user', userMessage);
         
-        // 顯示加載狀態
         this.isLoading = true;
         this.sendBtn.disabled = true;
         this.addLoadingMessage();
@@ -457,11 +547,7 @@ class ChatBot {
         try {
             const response = await this.callDeepSeekAPI(userMessage);
             this.removeLoadingMessage();
-            
-            // 添加機器人回應到 UI
             this.addBotMessage(response);
-            
-            // 添加機器人回應到歷史
             this.chatHistory.addMessage('assistant', response);
         } catch (error) {
             this.removeLoadingMessage();
@@ -475,7 +561,6 @@ class ChatBot {
     }
 
     async callDeepSeekAPI(userMessage) {
-        // 構建消息數組，包含系統提示詞和歷史記錄
         const messages = [
             { role: 'system', content: SYSTEM_PROMPT },
             ...this.chatHistory.getMessages()
@@ -516,9 +601,10 @@ class ChatBot {
 // ==================== 初始化 ====================
 document.addEventListener('DOMContentLoaded', () => {
     const chatbot = new ChatBot();
-    console.log('💬 AI Chatbot initialized successfully!');
+    console.log('💬 AI Chatbot with Voice Synthesis initialized successfully!');
 });
 //-------------------------chatbot code end -------------------------
+
     </script>
 </body>
 </html>
