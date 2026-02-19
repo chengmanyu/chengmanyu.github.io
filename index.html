@@ -218,18 +218,20 @@
 
     <!-- 浮動聊天機器人球體 -->
 <div class="chatbot-ball" id="chatbotBall">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="45" fill="#3498db"/>
-        <circle cx="35" cy="40" r="5" fill="white"/>
-        <circle cx="65" cy="40" r="5" fill="white"/>
-        <path d="M 35 55 Q 50 65 65 55" stroke="white" stroke-width="2" fill="none"/>
-    </svg>
+    <img src="assets/images/anime_icon2.jpg" alt="Jeff's AI Assistant" class="chatbot-avatar">
+    <div class="chatbot-pulse"></div>
 </div>
 
 <!-- 聊天窗口 -->
 <div class="chatbot-window" id="chatbotWindow">
     <div class="chatbot-header">
-        <h3>Jeff's AI Assistant</h3>
+        <div class="chatbot-header-content">
+            <img src="assets/images/anime_icon2.jpg" alt="Jeff" class="chatbot-header-avatar">
+            <div class="chatbot-header-text">
+                <h3>Jeff's AI Assistant</h3>
+                <p class="chatbot-status">Online</p>
+            </div>
+        </div>
         <button class="close-btn" id="closeBtn">&times;</button>
     </div>
     <div class="chatbot-messages" id="chatMessages"></div>
@@ -240,9 +242,12 @@
             placeholder="Ask me about Jeff..." 
             class="chatbot-input"
         />
-        <button class="send-btn" id="sendBtn">Send</button>
+        <button class="send-btn" id="sendBtn">
+            <i class="fas fa-paper-plane"></i>
+        </button>
     </div>
 </div>
+
 
     
     <script>
