@@ -9,7 +9,7 @@ const JEFF_INFO = {
     name: 'Jeff Cheng',
     title: 'Full Stack Developer / AI Enthusiast',
     skills: ['JavaScript', 'Python', 'React', 'Node.js', 'AI/ML', 'Web Development'],
-    experience: '5+ years of software development',
+    experience: '1+ years of software development',
     education: 'Computer Science degree',
     projects: [
         'Portfolio Website with AI Chatbot',
@@ -17,9 +17,9 @@ const JEFF_INFO = {
         'Real-time Chat Application',
         'Machine Learning Projects'
     ],
-    email: 'jeff@example.com',
-    github: 'https://github.com/jeffcheng',
-    location: 'Taiwan',
+    email: '25206591@life.hkbu.edu.hk',
+    github: 'https://github.com/chengmanyu',
+    location: 'Hong Kong',
     bio: 'Passionate about creating innovative solutions and learning new technologies.'
 };
 
