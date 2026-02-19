@@ -592,7 +592,8 @@
     <script>
 // ==================== 聊天機器人配置 ====================
 const DEEPSEEK_API_KEY = 'sk-e21a1283d3804330a9a06a1134fccf80';
-const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
+const YOUR_API_URL = '/api/chat';
+//const DEEPSEEK_API_URL = 'https://api.deepseek.com/chat/completions';
 
 // Jeff 的個人信息
 const JEFF_INFO = {
@@ -837,7 +838,7 @@ addBotMessage(text) {
             ...this.chatHistory.getMessages()
         ];
 
-        const res = await fetch(DEEPSEEK_API_URL, {
+        const res = await fetch(YOUR_API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
