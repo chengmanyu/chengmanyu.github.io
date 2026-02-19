@@ -695,13 +695,10 @@ class SpeechManager {
 }
 
 const speechManager = new SpeechManager();
-
 function convertEmojisToSpeech(text) {
     let cleaned = text;
-
     // 1. 移除所有 emoji（你原本就有的功能）
     cleaned = cleaned.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F3FB}-\u{1F3FF}]+/gu, '');
-
     // 2. 移除或取代常見的 Markdown 符號（重點在這裡）
     cleaned = cleaned
         .replace(/\*\*(.*?)\*\*/g, '$1')           // **粗體** → 直接保留文字
@@ -712,10 +709,8 @@ function convertEmojisToSpeech(text) {
         .replace(/~~(.*?)~~/g,       '$1')         // ~~刪除線~~ → 保留文字
         .replace(/###?\s*/g,         '')           // 移除標題 # ##
         .replace(/^\s*[-*+]\s+/gm,   ' • ');       // 清單項目 - * + → 唸成「・」
-
     // 3. 移除多餘的空白行或多個空格
     cleaned = cleaned.replace(/\n\s*\n/g, '\n').trim();
-
     return cleaned;
 }
         
