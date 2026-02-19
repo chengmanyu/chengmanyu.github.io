@@ -712,9 +712,12 @@ function convertEmojisToSpeech(text) {
     for (const [emoji, desc] of Object.entries(emojiMap)) {
         text = text.replace(new RegExp(emoji, 'g'), desc);
     }
-
+try {
     // 然後移除其他所有 emoji（擴大正則範圍，涵蓋更多 Unicode 區塊）
     return text.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F3FB}-\u{1F3FF}]+/gu, '');
+    } catch (e) {
+    return text; // 備用：不移除
+}
 }
         
 
