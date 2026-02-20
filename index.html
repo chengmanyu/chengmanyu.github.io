@@ -697,20 +697,43 @@ class SpeechManager {
 const speechManager = new SpeechManager();
 function convertEmojisToSpeech(text) {
     let cleaned = text;
-    // 1. 移除所有 emoji（你原本就有的功能）
-    cleaned = cleaned.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F3FB}-\u{1F3FF}]+/gu, '');
-    // 2. 移除或取代常見的 Markdown 符號（重點在這裡）
+
+    // 步驟 0：先做一些你特別想要替換的符號
     cleaned = cleaned
-        .replace(/\*\*(.*?)\*\*/g, '$1')           // **粗體** → 直接保留文字
-        .replace(/\*(.*?)\*/g,       '$1')         // *斜體*   → 直接保留文字
-        .replace(/__(.*?)__/g,       '$1')         // __粗體__ → 保留文字
-        .replace(/_(.*?)_/g,         '$1')         // _斜體_   → 保留文字
-        .replace(/`([^`]+)`/g,       '$1')         // `程式碼` → 保留文字
-        .replace(/~~(.*?)~~/g,       '$1')         // ~~刪除線~~ → 保留文字
-        .replace(/###?\s*/g,         '')           // 移除標題 # ##
-        .replace(/^\s*[-*+]\s+/gm,   ' • ');       // 清單項目 - * + → 唸成「・」
-    // 3. 移除多餘的空白行或多個空格
-    cleaned = cleaned.replace(/\n\s*\n/g, '\n').trim();
+        .replace(/~/g,          '')             // 移除所有 ~
+        .replace(/@/g,          ' at ')         // @ → 唸 "at"（英文語音比較自然）
+        // .replace(/@/g,       ' 艾特 ')       // 如果你希望中文語音唸「艾特」，可以用這行代替上面那行
+        .replace(/&/g,          ' and ')        // 可選：& → and
+        .replace(/#/g,          ' hashtag ')    // 可選：# → hashtag
+        .replace(/\//g,         ' slash ')      // 可選：/ → slash
+        .replace(/\|/g,         ' or ')         // 可選：| → or
+        ;
+
+    // 步驟 1：移除所有 emoji
+    cleaned = cleaned.replace(
+        /[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F3FB}-\u{1F3FF}]+/gu, 
+        ''
+    );
+
+    // 步驟 2：處理常見 Markdown 符號，讓語音唸起來更自然
+    cleaned = cleaned
+        .replace(/\*\*(.*?)\*\*/g, '$1')        // **粗體** → 保留文字
+        .replace(/\*(.*?)\*/g,     '$1')        // *斜體*   → 保留文字
+        .replace(/__(.*?)__/g,     '$1')        // __粗體__ → 保留文字
+        .replace(/_(.*?)_/g,       '$1')        // _斜體_   → 保留文字
+        .replace(/`([^`]+)`/g,     '$1')        // `程式碼` → 保留文字
+        .replace(/~~(.*?)~~/g,     '$1')        // ~~刪除線~~ → 保留文字
+        .replace(/###?\s*/g,       '')          // 移除標題 # ##
+        .replace(/^\s*[-*+]\s+/gm, ' • ')       // 清單項目 - * + → • 
+        .replace(/^\s*\d+\.\s+/gm, ' • ')       // 數字清單 1. 2. → • 
+        ;
+
+    // 步驟 3：處理多餘換行與空白（避免一直停頓）
+    cleaned = cleaned
+        .replace(/\n\s*\n/g, '\n')     // 多個空行 → 單換行
+        .replace(/\s+/g, ' ')          // 多個空格 → 單空格
+        .trim();
+
     return cleaned;
 }
         
